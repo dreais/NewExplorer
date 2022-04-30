@@ -6,6 +6,7 @@
 #define NEWEXPLORER_NEW_EXPLORER_H
 
 #include <time.h>
+#include <dirent.h>
 #include <limits.h>
 
 typedef struct {
@@ -22,5 +23,10 @@ typedef struct {
     // BACK-END VARIABLES
     char fullpath[PATH_MAX + 1];
 } entry_t;
+
+typedef struct {
+    DIR *dir;
+    char cursorPath[PATH_MAX + 1];
+} cursor_t;
 
 #endif //NEWEXPLORER_NEW_EXPLORER_H
