@@ -4,7 +4,10 @@ project(NewExplorer C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(NewExplorer Sources/main.c Headers/raylib.h Headers/new_explorer.h)
+include_directories(${CMAKE_SOURCE_DIR}/Headers)
+
 find_package(raylib 3.0 QUIET) # Let CMake search for a raylib-config.cmake
+
 
 # You could change the QUIET above to REQUIRED and remove this if() clause
 # This part downloads raylib and builds it if it's not installed on your system
