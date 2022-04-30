@@ -1,34 +1,31 @@
-#include <dirent.h>
-#include <limits.h>
-#include <sys/stat.h>
-
-#include <time.h>
-
+#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "new_explorer.h"
 
 int main(void)
 {
-    DIR *mainDir;
-    struct dirent *dir;
-    struct stat buff;
-    char FPATH[PATH_MAX + 1];
-    char relativePath[PATH_MAX + 1] = "C:\\";
+    // VARIABLES
+    cursor_t current;
 
-    mainDir = opendir(relativePath);
+    // RAYLIB INIT
 
-    while ((dir = readdir(mainDir)) != NULL) {
-        strcpy(FPATH, relativePath);
-        strcat(FPATH, dir->d_name);
-        if ((stat(FPATH, &buff)) == 0) {
-            printf("%s:\t", (S_ISREG(buff.st_mode)) ? "FILE" : "DIR");
-            printf("%s\t", ctime(&buff.st_mtime));
-            printf("%s\n", dir->d_name);
-        } else {
-            printf("Could not retrieve information about <%s>\n", dir->d_name);
-        }
+    // GET TO DEFAULT DIRECTORY
+    strcpy(current.cursorPath, "C:\\rear");
+    current.dir = opendir(current.cursorPath);
+    if (current.dir == NULL) {
+        fprintf(stderr, "%s (value: <%s>)\n", strerror(errno), current.cursorPath);
+        exit(errno);
     }
 
-    closedir(mainDir);
+    // MAIN LOOP STARTS HERE
 
+    // RAYLIB DE-INIT
+
+    // ANY DIR TO CLOSE BELOW
+    if (closedir(current.dir) != 0) {
+        fprintf(stderr, "%s\n", strerror(errno));
+        exit(errno);
+    }
     return 0;
 }
