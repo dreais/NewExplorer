@@ -7,6 +7,11 @@ int main(void)
 {
     // VARIABLES
     cursor_t current;
+    repository_t records;
+    int errorCheck = 0;
+
+    struct timeval startTv, endTv;
+    gettimeofday(&startTv, NULL);
 
     // RAYLIB INIT
 
@@ -17,6 +22,13 @@ int main(void)
         fprintf(stderr, "%s (value: <%s>)\n", strerror(errno), current.cursorPath);
         exit(errno);
     }
+
+    errorCheck = iterateCurrentDir(&current, &records);
+    if (errorCheck != 0) {
+        fprintf(stderr, "Failed to read directory <%s>\n", current.cursorPath);
+        exit(errorCheck);
+    }
+    dumpEntries(&records);
 
     // MAIN LOOP STARTS HERE
 

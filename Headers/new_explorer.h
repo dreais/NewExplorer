@@ -8,6 +8,7 @@
 #include <time.h>
 #include <dirent.h>
 #include <limits.h>
+#include <stdio.h>
 
 typedef struct {
 
@@ -25,8 +26,17 @@ typedef struct {
 } entry_t;
 
 typedef struct {
+    entry_t *entries;
+    unsigned int entriesCount;
+} repository_t;
+
+typedef struct {
     DIR *dir;
     char cursorPath[PATH_MAX + 1];
 } cursor_t;
+
+int iterateCurrentDir(cursor_t *current, repository_t *repo);
+void dumpEntries(repository_t *repo);
+void sortRepoByDefault(repository_t *repo);
 
 #endif //NEWEXPLORER_NEW_EXPLORER_H
