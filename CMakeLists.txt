@@ -3,7 +3,7 @@ project(NewExplorer C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(NewExplorer Sources/main.c Headers/raylib.h Headers/new_explorer.h)
+add_executable(NewExplorer Sources/main.c Headers/raylib.h Headers/new_explorer.h Sources/Pathing/readEntries.c Sources/Pathing/sorting.c)
 include_directories(${CMAKE_SOURCE_DIR}/Headers)
 
 find_package(raylib 3.0 QUIET) # Let CMake search for a raylib-config.cmake
