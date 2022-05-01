@@ -1,7 +1,8 @@
 #include <errno.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "new_explorer.h"
+
+#include <sys/time.h>
 
 int main(void)
 {
@@ -16,7 +17,7 @@ int main(void)
     // RAYLIB INIT
 
     // GET TO DEFAULT DIRECTORY
-    strcpy(current.cursorPath, "C:\\rear");
+    strcpy(current.cursorPath, "C:\\");
     current.dir = opendir(current.cursorPath);
     if (current.dir == NULL) {
         fprintf(stderr, "%s (value: <%s>)\n", strerror(errno), current.cursorPath);
@@ -39,5 +40,8 @@ int main(void)
         fprintf(stderr, "%s\n", strerror(errno));
         exit(errno);
     }
+
+    gettimeofday(&endTv, NULL);
+    printf("%f\n", (float) (endTv.tv_usec - startTv.tv_usec)/1000000.0f);
     return 0;
 }
