@@ -20,6 +20,7 @@ static unsigned int countFiles(cursor_t *current)
 void dumpEntries(repository_t *repo)
 {
     for (int i = 0; i < repo->entriesCount; i++) {
+        fprintf(stderr, "%s:\t", S_ISDIR(repo->entries[i].type) ? "DIR" : "FILE");
         fprintf(stderr, "<%s>\n", repo->entries[i].filename);
     }
 }
