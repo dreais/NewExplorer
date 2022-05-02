@@ -55,6 +55,6 @@ int iterateCurrentDir(cursor_t *current, repository_t *repo)
         repo->entries[cnt].type = fileInfo.st_mode;
         cnt++;
     }
-
+    sortRepoByDefault(repo);
     return 0;
 }
