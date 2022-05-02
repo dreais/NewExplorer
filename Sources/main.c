@@ -42,6 +42,6 @@ int main(void)
     }
 
     gettimeofday(&endTv, NULL);
-    printf("%f\n", (float) (endTv.tv_usec - startTv.tv_usec)/1000000.0f);
+    fprintf(stderr, "Execution time:\t%fs\n", (float) (endTv.tv_usec - startTv.tv_usec)/1000000.0f);
     return 0;
 }
