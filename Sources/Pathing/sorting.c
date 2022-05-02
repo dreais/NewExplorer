@@ -16,6 +16,31 @@ static int countDirInRepo(repository_t *repo)
     return count;
 }
 
+static unsigned int getStringValue(const char *string)
+{
+    unsigned int value = 0;
+
+    for (int i = 0; string[i]; i++) {
+        value += string[i];
+    }
+    return value;
+}
+
+void sortNamesBounds(repository_t *repo, int boundA, int boundB)
+{
+    entry_t swap;
+
+    for (int i = boundA; i < boundB; i++) {
+        for (int j = i; j < boundB; j++) {
+            if (repo->entries[i].filename[0] > repo->entries[j].filename[0]) {
+                swap = repo->entries[j];
+                repo->entries[j] = repo->entries[i];
+                repo->entries[i] = swap;
+            }
+        }
+    }
+}
+
 void sort_byTypeByName(repository_t *repo)
 {
     entry_t swap;
@@ -33,6 +58,8 @@ void sort_byTypeByName(repository_t *repo)
             }
         }
     }
+    sortNamesBounds(repo, boundA, boundB);
+    sortNamesBounds(repo, boundB + 1, (int) repo->entriesCount);
 }
 
 void sortRepoByDefault(repository_t *repo)
